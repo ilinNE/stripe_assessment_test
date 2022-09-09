@@ -1,0 +1,35 @@
+version: '3.3'
+services:
+
+  postgres:
+    image: postgres:13.0-alpine
+    volumes:
+      - /var/lib/postgresql/data/
+    env_file:
+      - ./.env
+  django:
+    build: 
+      context: ../.
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - static_value:/app/static/
+      - media_value:/app/media/
+    depends_on:
+      - postgres
+    env_file:
+      - ./.env 
+
+  nginx:
+    image: nginx:1.19.3
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - static_value:/var/html/static/
+      - media_value:/var/html/media/
+    depends_on:
+      - django
+volumes:
+  static_value:
+  media_value:
