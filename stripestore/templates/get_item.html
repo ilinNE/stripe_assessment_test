@@ -1,15 +1,16 @@
-<!DOCTYPE html>
-<html lang=ru>
-  <head>
-    <meta http-equiv="Content-Security-Policy" content=" script-src https://js.stripe.com 'unsafe-inline';">
-    <script src="https://js.stripe.com/v3/"></script>  
-    <title>Buy {{ item.name }} </title>
-  </head>
-  <body>
-    <h1>{{ item.name }}</h1>
-    <p>{{ item.description }}</p>
-    <p>1111</p>
-    <button id="buy-button">Buy</button>
+{% extends 'base.html' %}
+{% load mathfilters %}
+{% block title %} Buy {{ item.name }} {% endblock title %}
+{% block content %}
+    <div class="card">
+      <h1 class="card-header">Купить товар</h1>
+      <div class="card-body">
+        <h2>{{ item.name }}</h2>
+        <p>{{ item.description }}</p>
+        <p>Цена: {{ item.price |div:100  }} Р</p>
+      </div>
+    </div>
+      <button id="buy-button" class="btn btn-primary">Buy</button>
     <script type="text/javascript">
       var stripe = Stripe("{{ stripe_key }}");
       var buyButton = document.getElementById('buy-button');
@@ -24,5 +25,4 @@
           })
       });
     </script>
-  </body>
-</html>
+{% endblock content %} 

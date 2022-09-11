@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load mathfilters %}
+{% block title %} Buy {{ order }} {% endblock title %}
+{% block content %}
+    <h1>Покупки</h1>
+    {% for item_in_order in item_in_orders %}
+      <div class="card">
+        <h2 class="card-header">{{ item_in_order.item.name }}</h2>
+        <div class="card-body">
+          <p>{{ item_in_order.item.description }}</p>
+          <p>Цена: {{ item_in_order.item.price |div:100  }} Р</p>
+          <p>Количество: {{ item_in_order.quantity }}</p>
+        </div>
+      </div>    
+    {% endfor %}
+    {% if order.tax %}
+      <h1>Налог</h1>
+      <p>{{ order.tax.name }}</p>
+      <p>Ставка: {{ order.tax.percentage }}%</p>
+      {% endif %}  
+    {% if order.discount %}
+      <h1>Скидка</h1>
+      <p>{{ order.discount.name }}</p>
+      </hr> 
+    {% endif %}      
+      <button id="buy-button" class="btn btn-primary">Buy</button>
+    <script type="text/javascript">
+      var stripe = Stripe("{{ stripe_key }}");
+      var buyButton = document.getElementById('buy-button');
+      buyButton.addEventListener('click', function() {
+        fetch('/api/v1/orders/buy/{{order.id}}/', {method: 'GET'})
+        .then(function(response) {
+            return response.json();
+          })
+          .then(function(session) {
+            session_id = session.session_id
+            return stripe.redirectToCheckout({ sessionId: session_id });
+          })
+      });
+    </script>
+{% endblock content %} 

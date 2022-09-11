@@ -83,7 +83,6 @@ class Order(models.Model):
     items = models.ManyToManyField(
         Item,
         through="ItemInOrder",
-        related_name="items",
         verbose_name="Товары",
     )
     tax = models.ForeignKey(
