@@ -11,19 +11,15 @@
     <p>1111</p>
     <button id="buy-button">Buy</button>
     <script type="text/javascript">
-      var stripe = Stripe("pk_test_51LgEbmHE8R9CM9s4tedzq0nOfCknVXksmOVmfe8LWHR06DwyjjNI0QPRrLEQrLvgcxM6MH7EoiJoXOSRB52heek400IskwZ1Qs");
+      var stripe = Stripe("{{ stripe_key }}");
       var buyButton = document.getElementById('buy-button');
       buyButton.addEventListener('click', function() {
-        // Create a new Checkout Session using the server-side endpoint 
-        // Redirect to Stripe Session Checkout
-        fetch('/api/v1/buy/1/', {method: 'GET'})
+        fetch('/api/v1/buy/{{item.id}}/', {method: 'GET'})
         .then(function(response) {
-            alert(response);
             return response.json();
           })
           .then(function(session) {
             session_id = session.session_id
-            alert(session_id);
             return stripe.redirectToCheckout({ sessionId: session_id });
           })
       });
