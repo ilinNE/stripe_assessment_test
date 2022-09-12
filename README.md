@@ -21,7 +21,7 @@
 
 ```
 https://github.com/ilinNE/stripe_assessment_test.git
-cd infra/
+cd stripe_assessment_test/infra/
 ```
 Заполнить в файле .env секретный и публичный ключи stripe. Остальные переменные заполнены тестовыми данными, достаточными для запуска.  
 Запустить контенеры в фоновом режиме
@@ -29,10 +29,12 @@ cd infra/
 ```
 sudo docker-compose up -d
 ```
-Выполнить миграции, загрузить фикстуры, и собрать статческие файлы.
+Выполнить миграции,собрать статческие файлы и создать супервользователя.
 ```
 sudo docker-compose exec django python manage.py migrate
-sudo docker-compose exec django python manage.py loaddata fixtures.json
 sudo docker-compose exec django python manage.py collectstatic
+sudo docker-compose exec django python manage.py createsuperuser
 ```
 Теперь приложение доступно по адресу http://localhost/
+
+Можно войти в панель администратора http://localhost/admin/ используя логин и пароль суперпользователя, и наполнить базу обьектми.
