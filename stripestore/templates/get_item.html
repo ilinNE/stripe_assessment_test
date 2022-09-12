@@ -15,7 +15,7 @@
       var stripe = Stripe("{{ stripe_key }}");
       var buyButton = document.getElementById('buy-button');
       buyButton.addEventListener('click', function() {
-        fetch('/api/v1/buy/{{item.id}}/', {method: 'GET'})
+        fetch('/api/buy/{{item.id}}/', {method: 'GET'})
         .then(function(response) {
             return response.json();
           })

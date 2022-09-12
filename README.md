@@ -4,10 +4,10 @@
 
 # API
 <ul>
-  <li>GET /api/buy/{id} - Получить Stripe session ID для оплаты Item </li>
-  <li>GET /api/items/{id} - Получить HTML-странцу с информацией об Item и кнопка Buy для переходя на старницу оплаты </li>
-  <li>GET /api/orders/buy/{id}- Получить Stripe session ID для оплаты Order</li>
-  <li>GET /api/orders/{id} - Получить HTML-странцу с информацией о заказе и кнопка Buy для переходя на старницу оплаты </li>
+  <li>GET /api/buy/{id}/ - Получить Stripe session ID для оплаты Item </li>
+  <li>GET /api/items/{id}/ - Получить HTML-странцу с информацией об Item и кнопка Buy для переходя на старницу оплаты </li>
+  <li>GET /api/orders/buy/{id}/- Получить Stripe session ID для оплаты Order</li>
+  <li>GET /api/orders/{id}/ - Получить HTML-странцу с информацией о заказе и кнопка Buy для переходя на старницу оплаты </li>
 </ul>
 
 # Где расположен 

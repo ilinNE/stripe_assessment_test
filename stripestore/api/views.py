@@ -70,7 +70,7 @@ class BuyOrderAPIView(APIView):
             }
             if order.tax:
                 line_item["tax_rates"] = [order.tax.stripe_id]
-                line_items.append(line_item)
+            line_items.append(line_item)
         session_data = {
             "line_items": line_items,
             "mode": "payment",
